@@ -1,0 +1,437 @@
+
+AIM: NAVIGATION MENUS
+SOURCE CODE:
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navigation Menu</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: #f6f8fa;
+        }
+
+        /* Navigation Bar */
+        nav {
+            background-color: #ffffff;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 60px;
+        }
+
+        /* Logo */
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: #24292e;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo:hover {
+            color: #0366d6;
+        }
+
+        /* Menu Toggle Button (Mobile) */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+            background: none;
+            border: none;
+            padding: 5px;
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background-color: #24292e;
+            border-radius: 2px;
+            transition: 0.3s;
+        }
+
+        .menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(10px, 10px);
+        }
+
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -7px);
+        }
+
+        /* Navigation Links */
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 0;
+            align-items: center;
+        }
+
+        .nav-item {
+            position: relative;
+        }
+
+        .nav-link {
+            display: block;
+            padding: 10px 16px;
+            color: #24292e;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .nav-link:hover {
+            color: #0366d6;
+        }
+
+        .nav-link.active {
+            color: #0366d6;
+            border-bottom: 3px solid #0366d6;
+        }
+
+        /* Dropdown Menu */
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-toggle::after {
+            content: '▼';
+            font-size: 10px;
+            margin-left: 5px;
+            transition: transform 0.3s ease;
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #ffffff;
+            border: 1px solid #e1e4e8;
+            border-radius: 6px;
+            min-width: 200px;
+            list-style: none;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+            margin-top: 8px;
+        }
+
+        .dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown:hover .dropdown-toggle::after {
+            transform: rotate(180deg);
+        }
+
+        .dropdown-item {
+            display: block;
+            width: 100%;
+            padding: 10px 16px;
+            color: #24292e;
+            text-decoration: none;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+            text-align: left;
+            border: none;
+            cursor: pointer;
+            background: none;
+        }
+
+        .dropdown-item:first-child {
+            border-radius: 6px 6px 0 0;
+        }
+
+        .dropdown-item:last-child {
+            border-radius: 0 0 6px 6px;
+        }
+
+        .dropdown-item:hover {
+            background-color: #f6f8fa;
+            color: #0366d6;
+        }
+
+        /* User Section */
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .search-box {
+            display: flex;
+            align-items: center;
+            background-color: #f6f8fa;
+            border: 1px solid #e1e4e8;
+            border-radius: 6px;
+            padding: 6px 12px;
+            gap: 8px;
+        }
+
+        .search-box input {
+            border: none;
+            background: none;
+            outline: none;
+            font-size: 14px;
+            width: 180px;
+        }
+
+        .search-box input::placeholder {
+            color: #6a737d;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            color: #24292e;
+            padding: 6px 12px;
+            border-radius: 6px;
+            transition: background-color 0.3s ease;
+        }
+
+        .user-profile:hover {
+            background-color: #f6f8fa;
+        }
+
+        .user-avatar {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #0366d6, #6f42c1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: flex;
+            }
+
+            .nav-menu {
+                position: absolute;
+                top: 60px;
+                left: 0;
+                width: 100%;
+                background-color: #ffffff;
+                flex-direction: column;
+                gap: 0;
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.3s ease;
+                border-bottom: 1px solid #e1e4e8;
+                align-items: flex-start;
+            }
+
+            .nav-menu.active {
+                max-height: 500px;
+            }
+
+            .nav-item {
+                width: 100%;
+            }
+
+            .nav-link {
+                padding: 12px 20px;
+                border-bottom: 1px solid #e1e4e8;
+                border-radius: 0;
+            }
+
+            .nav-link.active {
+                border-bottom: 1px solid #e1e4e8;
+            }
+
+            .dropdown-menu {
+                position: static;
+                opacity: 0;
+                visibility: hidden;
+                max-height: 0;
+                overflow: hidden;
+                transform: none;
+                margin: 0;
+                border: none;
+                box-shadow: none;
+                background-color: #f6f8fa;
+            }
+
+            .dropdown.active .dropdown-menu {
+                opacity: 1;
+                visibility: visible;
+                max-height: 300px;
+            }
+
+            .dropdown-item {
+                padding: 10px 40px;
+                font-size: 13px;
+            }
+
+            .nav-right {
+                display: none;
+            }
+
+            .search-box {
+                width: 100%;
+                margin: 12px 20px;
+            }
+
+            .search-box input {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Menu -->
+    <nav>
+        <div class="nav-container">
+            <!-- Logo -->
+            <a href="#" class="logo">
+                <span>🚀</span>
+                Dashboard
+            </a>
+
+            <!-- Menu Toggle Button (Mobile) -->
+            <button class="menu-toggle" id="menuToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <!-- Navigation Menu -->
+            <ul class="nav-menu" id="navMenu">
+                <li class="nav-item">
+                    <a href="#home" class="nav-link active">Home</a>
+                </li>
+                <li class="nav-item dropdown" id="productsDropdown">
+                    <a href="#products" class="nav-link dropdown-toggle">Products</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#product1" class="dropdown-item">Product 1</a></li>
+                        <li><a href="#product2" class="dropdown-item">Product 2</a></li>
+                        <li><a href="#product3" class="dropdown-item">Product 3</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="#services" class="nav-link">Services</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#about" class="nav-link">About</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#contact" class="nav-link">Contact</a>
+                </li>
+            </ul>
+
+            <!-- Right Side (Search & User Profile) -->
+            <div class="nav-right">
+                <div class="search-box">
+                    <input type="text" placeholder="Search...">
+                </div>
+                <a href="#profile" class="user-profile">
+                    <div class="user-avatar">CG</div>
+                    <span>Profile</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Demo Content -->
+    <div style="padding: 40px 20px; max-width: 1200px; margin: 0 auto;">
+        <h1>Welcome to the Dashboard</h1>
+        <p style="margin-top: 20px; color: #6a737d; line-height: 1.6;">
+            This is a responsive navigation menu built with HTML, CSS, and vanilla JavaScript.
+            It features a mobile-friendly hamburger menu, dropdown menus, and a clean, modern design.
+        </p>
+        <p style="margin-top: 20px; color: #6a737d;">
+            Try resizing your browser window to see the responsive design in action!
+        </p>
+    </div>
+
+    <script>
+        // Menu Toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const navMenu = document.getElementById('navMenu');
+        const productsDropdown = document.getElementById('productsDropdown');
+
+        menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+
+        // Dropdown Toggle for Mobile
+        const navLinks = document.querySelectorAll('.nav-link');
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                const parent = link.parentElement;
+                if (parent.classList.contains('dropdown')) {
+                    if (window.innerWidth <= 768) {
+                        e.preventDefault();
+                        parent.classList.toggle('active');
+                    }
+                }
+            });
+        });
+
+        // Close mobile menu when clicking on a non-dropdown link
+        const nonDropdownLinks = document.querySelectorAll('.nav-item:not(.dropdown) .nav-link');
+        nonDropdownLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                menuToggle.classList.remove('active');
+                navMenu.classList.remove('active');
+            });
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('nav')) {
+                menuToggle.classList.remove('active');
+                navMenu.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>
+
+
+OUTPUT:
+
+
+
+
