@@ -1,0 +1,145 @@
+<html>
+<head>
+    <title>Vehicle Registration Form</title>
+
+    <style>
+        body {
+            background-color: #e6f2ff;
+            font-family: Arial, sans-serif;
+        }
+
+        .form-box {
+            width: 550px;
+            margin: 30px auto;
+            padding: 25px;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0px 0px 10px gray;
+        }
+
+        h2 {
+            text-align: center;
+            color: #003366;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0 15px;
+            box-sizing: border-box;
+        }
+
+        .option {
+            margin: 8px 0 15px;
+        }
+
+        .option input {
+            width: auto;
+            margin-right: 5px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: Bright Navy Blue;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color:blue;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="form-box">
+
+        <h2>Vehicle Registration Form</h2>
+
+        <form>
+
+            <label>Owner Name:</label>
+            <input type="text" placeholder="Enter owner's full name">
+
+            <label>Email:</label>
+            <input type="email" placeholder="Enter email address">
+
+            <label>Phone Number:</label>
+            <input type="tel" placeholder="Enter phone number">
+
+            <label>Address:</label>
+            <textarea rows="3" placeholder="Enter owner's address"></textarea>
+
+            <label>Vehicle Type:</label>
+            <select>
+                <option>Select Vehicle Type</option>
+                <option>Car</option>
+                <option>Motorcycle</option>
+                <option>Scooter</option>
+                <option>Auto Rickshaw</option>
+                <option>Truck</option>
+                <option>Bus</option>
+            </select>
+
+            <label>Vehicle Brand:</label>
+            <select>
+                <option>Select Brand</option>
+                <option>Maruti Suzuki</option>
+                <option>Hyundai</option>
+                <option>Tata</option>
+                <option>Toyota</option>
+                <option>Honda</option>
+                <option>Mahindra</option>
+            </select>
+
+            <label>Model Name:</label>
+            <input type="text" placeholder="Enter vehicle model">
+
+            <label>Registration Number:</label>
+            <input type="text" placeholder="Example: KA 01 AB 1234">
+
+            <label>Engine Number:</label>
+            <input type="text" placeholder="Enter engine number">
+
+            <label>Chassis Number:</label>
+            <input type="text" placeholder="Enter chassis number">
+
+            <label>Fuel Type:</label>
+            <div class="option">
+                <input type="radio" name="fuel"> Petrol
+                <input type="radio" name="fuel"> Diesel
+                <input type="radio" name="fuel"> Electric
+                <input type="radio" name="fuel"> CNG
+            </div>
+
+            <label>Vehicle Colour:</label>
+            <input type="text" placeholder="Enter vehicle colour">
+
+            <label>Manufacturing Year:</label>
+            <input type="number" min="1900" max="2026" placeholder="Enter year">
+
+            <label>Insurance:</label>
+            <div class="option">
+                <input type="radio" name="insurance"> Yes
+                <input type="radio" name="insurance"> No
+            </div>
+
+           
+
+            <button type="submit">Register Vehicle</button>
+
+        </form>
+
+    </div>
+
+</body>
+</html>
