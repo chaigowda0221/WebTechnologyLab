@@ -1,0 +1,112 @@
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>Subject Marks</title>
+
+<style>
+body {
+  background-color: #87CEEB;
+  background-image: url('student.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  margin: 0;
+  text-align: center;
+}
+
+.content {
+  padding: 20px;
+  background-color: rgba(230, 245, 255, 0.85);
+  margin: 100px 30px 30px;
+  border-radius: 15px;
+}
+
+h1, h2 {
+  font-family: Tahoma, sans-serif;
+  color: #123456;
+}
+
+h1 {
+  font-size: 28px;
+}
+
+h2 {
+  font-size: 22px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="content">
+
+<h1>STUDENT MARKSHEET</h1>
+
+<h2 id="english"></h2>
+<h2 id="science"></h2>
+<h2 id="social"></h2>
+<h2 id="maths"></h2>
+<h2 id="comp_sci"></h2>
+
+<h1 id="result"></h1>
+<h1 id="Grade"></h1>
+
+</div>
+
+<script>
+
+let English = 85;
+let Science = 92;
+let Social = 88;
+let Maths = 95;
+let Comp_Sci = 90;
+
+let Avg = (English + Science + Social + Maths + Comp_Sci) / 5;
+
+let grade;
+
+if (Avg < 35) {
+  grade = "F";
+} else if (Avg <= 50) {
+  grade = "C";
+} else if (Avg <= 65) {
+  grade = "C+";
+} else if (Avg <= 79) {
+  grade = "B";
+} else if (Avg <= 89) {
+  grade = "A";
+} else {
+  grade = "A+";
+}
+
+document.getElementById("english").innerText =
+  "English Marks: " + English;
+
+document.getElementById("science").innerText =
+  "Science Marks: " + Science;
+
+document.getElementById("social").innerText =
+  "Social Marks: " + Social;
+
+document.getElementById("maths").innerText =
+  "Maths Marks: " + Maths;
+
+document.getElementById("comp_sci").innerText =
+  "Computer Science Marks: " + Comp_Sci;
+
+document.getElementById("result").innerText =
+  "Average Marks Of The Student: " + Avg;
+
+document.getElementById("Grade").innerText =
+  "Grade Of The Student: " + grade;
+
+console.log(Avg);
+
+</script>
+
+</body>
+</html>
