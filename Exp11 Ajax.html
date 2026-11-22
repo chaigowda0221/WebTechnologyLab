@@ -1,0 +1,130 @@
+<html ng-app="orderApp">
+<head>
+    <title>Navigation Menu and Order Form</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            display: inline;
+            margin-right: 20px;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 60%;
+        }
+
+        table, th, td {
+            border: 1px solid black;
+            padding: 8px;
+        }
+
+        th {
+            background-color: lightgray;
+        }
+
+        .total {
+            font-size: 20px;
+            color: blue;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+
+<body ng-controller="OrderController">
+
+    <h2>AngularJS Navigation Menu Using Directive</h2>
+
+    <!-- Navigation Directive -->
+    <navigation-menu></navigation-menu>
+
+    <hr>
+
+    <h2>Food Order Form Using Directive</h2>
+
+    <!-- Order Form Directive -->
+    <order-form items="menuItems"></order-form>
+
+<script>
+var app = angular.module("orderApp", []);
+
+app.controller("OrderController", function($scope) {
+
+    $scope.menuItems = [
+        {name: "Pizza", price: 250, qty: 0},
+        {name: "Burger", price: 120, qty: 0},
+        {name: "Sandwich", price: 100, qty: 0},
+        {name: "Coffee", price: 80, qty: 0}
+    ];
+
+});
+
+
+// Navigation Menu Directive
+app.directive("navigationMenu", function() {
+    return {
+        restrict: "E",
+        template:
+        '<ul>' +
+            '<li><a href="#">Home</a></li>' +
+            '<li><a href="#">Menu</a></li>' +
+            '<li><a href="#">Orders</a></li>' +
+            '<li><a href="#">Contact</a></li>' +
+        '</ul>'
+    };
+});
+
+
+// Order Form Directive
+app.directive("orderForm", function() {
+    return {
+        restrict: "E",
+        scope: {
+            items: "="
+        },
+        template:
+        '<table>' +
+        '<tr>' +
+            '<th>Item</th>' +
+            '<th>Price (₹)</th>' +
+            '<th>Quantity</th>' +
+        '</tr>' +
+        '<tr ng-repeat="item in items">' +
+            '<td>{{item.name}}</td>' +
+            '<td>{{item.price}}</td>' +
+            '<td><input type="number" ng-model="item.qty" min="0"></td>' +
+        '</tr>' +
+        '</table>' +
+
+        '<div class="total">' +
+            'Total Amount: ₹ {{getTotal()}}' +
+        '</div>',
+
+        link: function(scope) {
+            scope.getTotal = function() {
+                var total = 0;
+
+                angular.forEach(scope.items, function(item) {
+                    total += item.price * item.qty;
+                });
+
+                return total;
+            };
+        }
+    };
+});
+</script>
+
+</body>
+</html>
